@@ -5,8 +5,8 @@ Management of Docker Containers
 .. versionadded:: 2014.1.0
 
 .. deprecated:: 2015.8.0
-    Future feature development will be done only in :mod:`dockerng
-    <salt.modules.dockerng>`. See the documentation for this module for
+    Future feature development will be done only in :mod:`docker
+    <salt.modules.docker>`. See the documentation for this module for
     information on the deprecation path.
 
 .. note::
@@ -710,12 +710,12 @@ def create_container(image,
             'info': _get_container_infos(container),
             'out': container_info
         }
-        __salt__['mine.send']('dockerng.ps', verbose=True, all=True, host=True)
+        __salt__['mine.send']('docker.ps', verbose=True, all=True, host=True)
         return callback(status, id_=container, comment=comment, out=out)
     except Exception as e:
         _invalid(status, id_=image, out=traceback.format_exc())
         raise e
-    __salt__['mine.send']('dockerng.ps', verbose=True, all=True, host=True)
+    __salt__['mine.send']('docker.ps', verbose=True, all=True, host=True)
     return status
 
 
@@ -829,7 +829,7 @@ def stop(container, timeout=10):
                  comment=(
                      'An exception occurred while stopping '
                      'your container {0}').format(container))
-    __salt__['mine.send']('dockerng.ps', verbose=True, all=True, host=True)
+    __salt__['mine.send']('docker.ps', verbose=True, all=True, host=True)
     return status
 
 
@@ -884,7 +884,7 @@ def kill(container, signal=None):
                  comment=(
                      'An exception occurred while killing '
                      'your container {0}').format(container))
-    __salt__['mine.send']('dockerng.ps', verbose=True, all=True, host=True)
+    __salt__['mine.send']('docker.ps', verbose=True, all=True, host=True)
     return status
 
 
@@ -920,7 +920,7 @@ def restart(container, timeout=10):
                  comment=(
                      'An exception occurred while restarting '
                      'your container {0}').format(container))
-    __salt__['mine.send']('dockerng.ps', verbose=True, all=True, host=True)
+    __salt__['mine.send']('docker.ps', verbose=True, all=True, host=True)
     return status
 
 
@@ -1000,7 +1000,7 @@ def start(container,
                  comment=(
                      'An exception occurred while starting '
                      'your container {0}').format(container))
-    __salt__['mine.send']('dockerng.ps', verbose=True, all=True, host=True)
+    __salt__['mine.send']('docker.ps', verbose=True, all=True, host=True)
     return status
 
 
@@ -1038,7 +1038,7 @@ def wait(container):
                  comment=(
                      'An exception occurred while waiting '
                      'your container {0}').format(container))
-    __salt__['mine.send']('dockerng.ps', verbose=True, all=True, host=True)
+    __salt__['mine.send']('docker.ps', verbose=True, all=True, host=True)
     return status
 
 
@@ -1118,7 +1118,7 @@ def remove_container(container, force=False, v=False):
                          comment=(
                              'Container {0} is running, '
                              'won\'t remove it').format(container))
-                __salt__['mine.send']('dockerng.ps', verbose=True, all=True, host=True)
+                __salt__['mine.send']('docker.ps', verbose=True, all=True, host=True)
                 return status
             else:
                 kill(dcontainer)
@@ -1132,7 +1132,7 @@ def remove_container(container, force=False, v=False):
             status['comment'] = 'Container {0} was removed'.format(container)
     except Exception:
         _invalid(status, id_=container, out=traceback.format_exc())
-    __salt__['mine.send']('dockerng.ps', verbose=True, all=True, host=True)
+    __salt__['mine.send']('docker.ps', verbose=True, all=True, host=True)
     return status
 
 
